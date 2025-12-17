@@ -34,7 +34,14 @@ def hash_file(file_path: str) -> str:
         str: The hexadecimal SHA-1 hash of the file.
     """
     # Run "pytest find_duplicates_solo.py -k hash_file" to test your implementation
-    raise NotImplementedError()
+    sha1 = hashlib.sha1()
+    with open(file_path, 'rb') as f:
+        while True:
+            data = f.read(65536)
+            if not data:
+                break
+            sha1.update(data)
+    return sha1.hexdigest()
 
 
 def group_files_by_full_hash(file_paths: list[str]) -> list[list[str]]:
